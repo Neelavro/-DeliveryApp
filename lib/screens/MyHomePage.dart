@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.white70,
         title: Text(
-          'Hi, I am Tashfia.',
+          'This is going to be our home page!',
           style: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w900,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_folder/screens/MyHomePage.dart';
+import 'package:test_folder/screens/loginpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: const loginpage(),
     );
   }
 }
