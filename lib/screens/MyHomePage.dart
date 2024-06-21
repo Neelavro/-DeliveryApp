@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(
           'Hi, I am Tashfia.',
           style: TextStyle(
-            fontSize: 50,
+            fontSize: 40,
             fontWeight: FontWeight.w900,
             color: Colors.black12
 
