@@ -5,6 +5,8 @@ urlpatterns = [
     path("user/login/", views.getUser, name= "user"),
     path("user/signup/", views.CreateUser, name= "user"),
     path("restaurant/create",views.CreateUser, name="restaurant"),
-    path("user/admin/login",views.LoginAdmin, name="admin")
+    path("user/admin/login",views.LoginAdmin, name="admin"),
+    path("user/admin/create",views.CreateAdmin, name="admin")
+
 
 ]

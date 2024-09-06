@@ -31,14 +31,16 @@ def LoginAdmin(request):
 
    if request.method == "POST":
         data = json.loads(request.body)
-        print(data.get('phone'))
         users = CustomUser.objects.get(user_contact = data.get("phone"))
-        print(data.get("phone"))
-        print(users.user_contact)
         if users.user_contact == data.get("phone") and users.user_password == data.get("password"):
             #new_token = sessionTokenHandler(users.email)
             return JsonResponse({ "data": "USER LOGIN SUCCESSFUL"}, safe=False)
-
+@csrf_exempt
+def CreateAdmin(request):
+   if request.method == "POST":
+        data = json.loads(request.body)
+        users = CustomUser.objects.create(user_name = data.get("name"), user_password = data.get("password"), user_email = data.get("email"),  user_contact = data.get("phone"))
+        return JsonResponse({ "data": "USER CREATE SUCCESSFUL"}, safe=False)
 
 
 @csrf_exempt
