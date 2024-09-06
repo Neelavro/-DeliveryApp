@@ -1,5 +1,6 @@
 import 'package:delivery_app_admin_panel/screens/HomePage.dart';
 import 'package:delivery_app_admin_panel/screens/LoginPage.dart';
+import 'package:delivery_app_admin_panel/screens/RestaurantPage.dart';
 import 'package:delivery_app_admin_panel/screens/SignUp.dart';
 import 'package:delivery_app_admin_panel/screens/dummy.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,8 @@ class RouteGenerator {
           return SignUpPage();
         case "/homepage":
           return HomePage();
+        case "/restaurantpage":
+          return RestaurantPage();
       }
       return Dummy();
       // need to change to error page
