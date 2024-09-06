@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-0$b*pkel^x^o=%mac8)r2+syvf@tfnj*$jzvbmpg-vzr!^@zwz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*'
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:xxxx",  # Replace xxxx with your Flutter app's port
+    "http://127.0.0.1:xxxx",  # If you use the loopback IP
+    "http://192.168.0.192:8000",  # Your local server IP
+]
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -37,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'backend'
+    'backend',
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -48,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'food_delivery.urls'
