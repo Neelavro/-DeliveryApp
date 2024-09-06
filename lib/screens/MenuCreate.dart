@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class RestaurantPage extends StatefulWidget {
-  const RestaurantPage({Key? key}) : super(key: key);
+class MenuCreate extends StatefulWidget {
+  const  MenuCreate({Key? key}) : super(key: key);
 
   @override
-  State<RestaurantPage> createState() => _RestaurantPageState();
+  State<MenuCreate> createState() => _MenuCreateState();
 }
 
-class _RestaurantPageState extends State<RestaurantPage> {
+class _MenuCreateState extends State<MenuCreate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
         title: Text(
-          "Restaurant"
+            "Menu"
         ),
       ),
       body: SingleChildScrollView(
@@ -33,7 +33,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     focusColor: Colors.red,
-                    labelText: "bin",
+                    labelText: "Name",
                     labelStyle: TextStyle(
                         color: Colors.black
                     ),
@@ -56,7 +56,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     focusColor: Colors.red,
-                    labelText: "name",
+                    labelText: "Type",
                     labelStyle: TextStyle(
                         color: Colors.black
                     ),
@@ -79,7 +79,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     focusColor: Colors.red,
-                    labelText: "Phone",
+                    labelText: "Price",
                     labelStyle: TextStyle(
                         color: Colors.black
                     ),
@@ -102,7 +102,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     focusColor: Colors.red,
-                    labelText: "image",
+                    labelText: "Description",
                     labelStyle: TextStyle(
                         color: Colors.black
                     ),
@@ -120,7 +120,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
               const SizedBox(height: 20,),
               GestureDetector(
                 onTap: (){
-                  Navigator.pushNamed(context, "/homepage");
+                  Navigator.pushNamed(context, "/menupage");
                 },
                 child: Container(
                   alignment: Alignment.center,

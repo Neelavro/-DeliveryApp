@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:delivery_app_admin_panel/Widget/DiscountListWidget.dart';
-import 'package:delivery_app_admin_panel/Widget/RestaurantListWidget.dart';
+import 'package:delivery_app_admin_panel/Widget/MenuListWidget.dart';
 import 'package:sizer/sizer.dart';
 
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MenuPage extends StatefulWidget {
+  const MenuPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MenuPage> createState() => _MenuPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
         title:  Text(
-          "BiteDash"
+            "Restaurants"
         ),
       ),
       body: SingleChildScrollView(
@@ -32,25 +30,25 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Column(
                   children: [
-                    const SizedBox(height: 20,),
-                    RestaurantListWidget("Restaurants"),
+                    const SizedBox(height: 10,),
+                    MenuListWidget(),
 
                   ],
                 ),
                 GestureDetector(
                   onTap: (){
-                    Navigator.pushNamed(context, "/restaurantcreatepage");
+                    Navigator.pushNamed(context, "/menucreate");
                   },
                   child: Container(
                     alignment: Alignment.center,
                     height: 10.h,
-                    width: 20.w,
+                    width: 30.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: Colors.red
                     ),
                     child: Text(
-                      "Create a Restaurant",
+                      "Create a Menu",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

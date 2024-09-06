@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class MenuListWigdet extends StatefulWidget {
-  MenuListWigdet(
+class MenuListWidget extends StatefulWidget {
+  MenuListWidget(
       {Key? key}) : super();
 
   @override
-  State<MenuListWigdet> createState() => _MenuListWigdetState();
+  State<MenuListWidget> createState() => _MenuListWidgetState();
 }
 
-class _MenuListWigdetState extends State<MenuListWigdet> {
+class _MenuListWidgetState extends State<MenuListWidget> {
   List menu = ['Burger', "Pizza", "Chicken Fry", "Fries", "Meatbox"];
 
   @override

@@ -1,29 +1,82 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class RestaurantCreatePage extends StatefulWidget {
+  const RestaurantCreatePage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<RestaurantCreatePage> createState() => _RestaurantCreatePageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _RestaurantCreatePageState extends State<RestaurantCreatePage> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        title: Text(
+          "Restaurants"
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(10),
+          width: 100.w,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset("assets/unnamed.png",height: 50.h,),
+              const SizedBox(height: 40,),
               Container(
-                width: 50.w,
+                width: 60.w,
                 child: TextFormField(
                   cursorColor: Colors.red,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    focusColor: Colors.red,
+                    labelText: "bin",
+                    labelStyle: TextStyle(
+                        color: Colors.black
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              Container(
+                width: 60.w,
+                child: TextFormField(
+                  cursorColor: Colors.red,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    focusColor: Colors.red,
+                    labelText: "name",
+                    labelStyle: TextStyle(
+                        color: Colors.black
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              Container(
+                width: 60.w,
+                child: TextFormField(
+                  cursorColor: Colors.red,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     focusColor: Colors.red,
                     labelText: "Phone",
@@ -43,13 +96,13 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 20,),
               Container(
-                width: 50.w,
+                width: 60.w,
                 child: TextFormField(
-                  obscureText: true,
                   cursorColor: Colors.red,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     focusColor: Colors.red,
-                    labelText: "Password",
+                    labelText: "image",
                     labelStyle: TextStyle(
                         color: Colors.black
                     ),
@@ -59,51 +112,26 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: Colors.red,width: 2),
-
+                      borderSide: BorderSide(color: Colors.red, width: 2),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 20,),
-              Container(
-                width: 50.w,
-                child: TextFormField(
-                  obscureText: true,
-                  cursorColor: Colors.red,
-                  decoration: InputDecoration(
-                    focusColor: Colors.red,
-                    labelText: "Confirm Password",
-                    labelStyle: TextStyle(
-                        color: Colors.black
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 2),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: Colors.red,width: 2),
-
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30,),
               GestureDetector(
                 onTap: (){
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pushNamed(context, "/homepage");
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  height: 6.h,
-                  width: 18.w,
+                  height: 10.h,
+                  width: 20.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: Colors.red
                   ),
                   child: Text(
-                    "Sign up",
+                    "Create",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -112,32 +140,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account?",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 5.sp
-                    ),
-                  ),GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context, '/');
-                    },
-                    child: Text(
-                      " Sign in",
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 5.sp
-                      ),
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         ),

@@ -22,9 +22,9 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/unnamed.png",height: 30.h,),
+              Image.asset("assets/unnamed.png",height: 50.h,),
               Container(
-                width: 60.w,
+                width: 50.w,
                 child: TextFormField(
                   controller: phone,
                   cursorColor: Colors.red,
@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20,),
               Container(
-                width: 60.w,
+                width: 50.w,
                 child: TextFormField(
                   controller: password,
                   obscureText: true,
@@ -84,8 +84,8 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  height: 10.h,
-                  width: 20.w,
+                  height: 6.h,
+                  width: 18.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.red
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 50,),
+              const SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 4.sp
+                        fontSize: 5.sp
                     ),
                   )
                   ,GestureDetector(
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
-                          fontSize: 4.sp
+                          fontSize: 5.sp
                       ),
                     ),
                   ),
