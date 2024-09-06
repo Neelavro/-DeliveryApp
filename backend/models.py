@@ -2,13 +2,13 @@ from django.db import models
 import uuid
 
 class CustomUser(models.Model):
+    user_contact = models.CharField(max_length=11, null=False,primary_key=True)
     user_name = models.CharField(max_length=50, null=False)
     user_password = models.CharField(max_length=50, null=False)
     user_email = models.EmailField(max_length=50, unique=True, default='default')
-    user_type_choices = [('admin', 'Admin'), ('customer', 'Customer')]
-    user_type = models.CharField(max_length=50, choices=user_type_choices, default='customer')
-    user_contact = models.CharField(max_length=11, null=False)
-    user_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    #user_type_choices = [('admin', 'Admin'), ('customer', 'Customer')]
+    #user_type = models.CharField(max_length=50, choices=user_type_choices, default='customer')
+    #user_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
     def __str__(self):
         return self.user_name
@@ -16,7 +16,7 @@ class CustomUser(models.Model):
 class Restaurant(models.Model):
     restaurant_name = models.CharField(max_length=50, null=False)
     restaurant_image = models.CharField(max_length=300, null=False)
-    restaurant_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    restaurant_id = models.AutoField( editable=False, unique=True, primary_key=True)
 
     def __str__(self):
         return self.restaurant_name

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import random
+import random
 # Create your views here.
 from rest_framework import generics
 from .models import *
@@ -10,6 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 import jwt
+from django.core import serializers
+
 
 @csrf_exempt
 def getUser(request):
@@ -76,5 +79,25 @@ def sessionTokenHandler(email):
     print(token)
     SessionToken.objects.create(user_email = email, token = token )
     return token
+    
+@csrf_exempt
+def createRestaurantPost(request):
+    data = json.loads(request.body)
+    print("DATA")
+    print(data)
+    restaurant = Restaurant.objects.create(restaurant_name = data.get("name"), restaurant_image = data.get("image_url") )
+    return JsonResponse({ "message":"Restaurant created successfully"}, safe=False)
+
+@csrf_exempt
+def RestaurantGet(request):
+    restaurant = Restaurant.objects.all()
+    data = serializers.serialize('json',restaurant)
+    return JsonResponse({"message": "Restaurant received SUCCESSFULLY", "data": data})
+
+@csrf_exempt  
+def IndividualRestaurantGet(request,id):
+    restaurant = Restaurant.objects.get(restaurant_id=id)
+    data = serializers.serialize('json',restaurant)
+    return JsonResponse({"message": "Restaurant received SUCCESSFULLY", "data": data})
     
     
