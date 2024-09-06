@@ -1,3 +1,4 @@
+import 'package:delivery_app_admin_panel/repostiory/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,6 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController phone = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -23,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 60.w,
                 child: TextFormField(
+                  controller: phone,
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
@@ -46,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 60.w,
                 child: TextFormField(
+                  controller: password,
                   obscureText: true,
                   cursorColor: Colors.red,
                   decoration: InputDecoration(
@@ -68,8 +73,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 50,),
               GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, "/homepage");
+                onTap: ()async{
+                  print(phone.text);
+                  bool x = await loginUserApi(phone.text, password.text);
+                  if (x){
+                    Navigator.pushNamed(context, "/homepage");
+                  }
+                  else{
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,
