@@ -18,9 +18,9 @@ class _SignUpPageState extends State<SignUpPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset("assets/unnamed.png"),
+              Image.asset("assets/unnamed.png",height: 50.h,),
               Container(
-                width: 80.w,
+                width: 50.w,
                 child: TextFormField(
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.phone,
@@ -43,7 +43,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 20,),
               Container(
-                width: 80.w,
+                width: 50.w,
                 child: TextFormField(
                   obscureText: true,
                   cursorColor: Colors.red,
@@ -67,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 20,),
               Container(
-                width: 80.w,
+                width: 50.w,
                 child: TextFormField(
                   obscureText: true,
                   cursorColor: Colors.red,
@@ -89,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 50,),
+              const SizedBox(height: 30,),
               GestureDetector(
                 onTap: (){
                   Navigator.pushNamed(context, '/');
@@ -97,7 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Container(
                   alignment: Alignment.center,
                   height: 6.h,
-                  width: 50.w,
+                  width: 18.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: Colors.red
@@ -107,12 +107,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18.sp
+                        fontSize: 6.sp
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 50,),
+              const SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -121,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 11.sp
+                        fontSize: 5.sp
                     ),
                   ),GestureDetector(
                     onTap: (){
@@ -132,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
-                          fontSize: 11.sp
+                          fontSize: 5.sp
                       ),
                     ),
                   ),

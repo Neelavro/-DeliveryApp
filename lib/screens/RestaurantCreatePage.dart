@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class RestaurantPage extends StatefulWidget {
-  const RestaurantPage({Key? key}) : super(key: key);
+class RestaurantCreatePage extends StatefulWidget {
+  const RestaurantCreatePage({Key? key}) : super(key: key);
 
   @override
-  State<RestaurantPage> createState() => _RestaurantPageState();
+  State<RestaurantCreatePage> createState() => _RestaurantCreatePageState();
 }
 
-class _RestaurantPageState extends State<RestaurantPage> {
+class _RestaurantCreatePageState extends State<RestaurantCreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
         title: Text(
-          "Restaurant"
+          "Restaurants"
         ),
       ),
       body: SingleChildScrollView(

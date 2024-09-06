@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:delivery_app_admin_panel/Widget/DiscountListWidget.dart';
-import 'package:delivery_app_admin_panel/Widget/RestaurantListWigdet.dart';
+import 'package:delivery_app_admin_panel/Widget/RestaurantListWidget.dart';
 import 'package:sizer/sizer.dart';
 
 
@@ -27,19 +27,19 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             width: 100.w,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
                   children: [
                     const SizedBox(height: 20,),
-                    RestaurantListWigdet("Restaurants"),
+                    RestaurantListWidget("Restaurants"),
 
                   ],
                 ),
                 GestureDetector(
                   onTap: (){
-                    Navigator.pushNamed(context, "/restaurantpage");
+                    Navigator.pushNamed(context, "/restaurantcreatepage");
                   },
                   child: Container(
                     alignment: Alignment.center,
