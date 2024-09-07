@@ -1,15 +1,31 @@
+import 'dart:convert';
+
+import 'package:delivery_app_admin_panel/screens/MenuCreate.dart';
 import 'package:flutter/material.dart';
 import 'package:delivery_app_admin_panel/Widget/MenuListWidget.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
+
+import '../constant.dart';
 
 class MenuPage extends StatefulWidget {
-  const MenuPage({Key? key}) : super(key: key);
+  String id;
+  MenuPage(this.id, {Key? key}) : super(key: key);
 
   @override
   State<MenuPage> createState() => _MenuPageState();
 }
 
 class _MenuPageState extends State<MenuPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.id);
+  }
+
+  bool loading = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +35,7 @@ class _MenuPageState extends State<MenuPage> {
             "Restaurants"
         ),
       ),
-      body: SingleChildScrollView(
+      body:SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15),
           child: Container(
@@ -28,16 +44,24 @@ class _MenuPageState extends State<MenuPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                menuList != []?
                 Column(
                   children: [
                     const SizedBox(height: 10,),
                     MenuListWidget(),
-
                   ],
-                ),
+                ): Center(child: Text("No menu found yet", style: TextStyle(
+                  color: Colors.black,
+                ),)),
                 GestureDetector(
                   onTap: (){
-                    Navigator.pushNamed(context, "/menucreate");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MenuCreate(widget.id),
+
+                      ),
+                    );
                   },
                   child: Container(
                     alignment: Alignment.center,

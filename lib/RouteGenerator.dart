@@ -20,12 +20,10 @@ class RouteGenerator {
           return SignUpPage();
         case "/homepage":
           return HomePage();
-        case "/menupage":
-          return MenuPage();
         case "/restaurantcreatepage":
           return RestaurantCreatePage();
         case "/menucreate":
-          return MenuCreate();
+          return MenuCreate("1");
       }
       return Dummy();
       // need to change to error page

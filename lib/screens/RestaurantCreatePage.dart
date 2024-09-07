@@ -1,3 +1,4 @@
+import 'package:delivery_app_admin_panel/repostiory/restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,6 +10,8 @@ class RestaurantCreatePage extends StatefulWidget {
 }
 
 class _RestaurantCreatePageState extends State<RestaurantCreatePage> {
+  TextEditingController name = TextEditingController();
+  TextEditingController image = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,29 +32,7 @@ class _RestaurantCreatePageState extends State<RestaurantCreatePage> {
               Container(
                 width: 60.w,
                 child: TextFormField(
-                  cursorColor: Colors.red,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    focusColor: Colors.red,
-                    labelText: "bin",
-                    labelStyle: TextStyle(
-                        color: Colors.black
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 2),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: Colors.red, width: 2),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20,),
-              Container(
-                width: 60.w,
-                child: TextFormField(
+                  controller: name,
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -75,29 +56,8 @@ class _RestaurantCreatePageState extends State<RestaurantCreatePage> {
               Container(
                 width: 60.w,
                 child: TextFormField(
-                  cursorColor: Colors.red,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    focusColor: Colors.red,
-                    labelText: "Phone",
-                    labelStyle: TextStyle(
-                        color: Colors.black
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 2),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: Colors.red, width: 2),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20,),
-              Container(
-                width: 60.w,
-                child: TextFormField(
+                  readOnly: true,
+                  controller: image,
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -117,14 +77,40 @@ class _RestaurantCreatePageState extends State<RestaurantCreatePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 40,),
               GestureDetector(
-                onTap: (){
+                onTap: ()async{
+                  image.text  = await uploadImage();
+                  setState(() {
+                  });
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 6.h,
+                  width: 18.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.red
+                  ),
+                  child: Text(
+                    "Upload a photo",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 6.sp
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40,),
+              GestureDetector(
+                onTap: ()async{
+                  await createRestaurant(name.text, image.text);
                   Navigator.pushNamed(context, "/homepage");
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  height: 10.h,
+                  height: 8.h,
                   width: 20.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),

@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../constant.dart';
 
 class MenuListWidget extends StatefulWidget {
   MenuListWidget(
@@ -31,7 +34,7 @@ class _MenuListWidgetState extends State<MenuListWidget> {
           child: ScrollConfiguration(
             behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ListView.builder(
-                itemCount: 5,
+                itemCount: menuList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -65,6 +68,13 @@ class _MenuListWidgetState extends State<MenuListWidget> {
                             decoration: BoxDecoration(
                                 color: Colors.black26,
                                 borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15))
+
+                            ),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl: serverurl+menuList[index]["fields"]["image_url"].toString(),
+                              placeholder: (context, url) => Center(child: CircularProgressIndicator(color: Colors.red,)),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
                             ),
                           ),
                           Container(
@@ -78,7 +88,7 @@ class _MenuListWidgetState extends State<MenuListWidget> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(menu[index],
+                                Text(menuList[index]["fields"]['item_name'],
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
@@ -89,11 +99,13 @@ class _MenuListWidgetState extends State<MenuListWidget> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Icon(Icons.currency_pound,size: 2.sp,color: Colors.grey,),
-                                        Icon(Icons.currency_pound,size: 2.sp,color: Colors.grey),
-                                      ],
+                                    Text(
+                                      "${menuList[index]["fields"]['item_price']} BDT",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 2.sp
+                                      ),
                                     ),
 
                                     Text("Fast Food",

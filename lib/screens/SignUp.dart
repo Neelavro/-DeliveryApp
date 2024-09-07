@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../repostiory/authentication.dart';
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
@@ -9,6 +11,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController phone = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirm_password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,6 +29,31 @@ class _SignUpPageState extends State<SignUpPage> {
               Container(
                 width: 50.w,
                 child: TextFormField(
+                  controller: name,
+                  cursorColor: Colors.red,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    focusColor: Colors.red,
+                    labelText: "Name",
+                    labelStyle: TextStyle(
+                        color: Colors.black
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              Container(
+                width: 50.w,
+                child: TextFormField(
+                  controller: phone,
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
@@ -45,6 +77,31 @@ class _SignUpPageState extends State<SignUpPage> {
               Container(
                 width: 50.w,
                 child: TextFormField(
+                  controller: email,
+                  cursorColor: Colors.red,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    focusColor: Colors.red,
+                    labelText: "Email",
+                    labelStyle: TextStyle(
+                        color: Colors.black
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              Container(
+                width: 50.w,
+                child: TextFormField(
+                  controller: password,
                   obscureText: true,
                   cursorColor: Colors.red,
                   decoration: InputDecoration(
@@ -91,8 +148,13 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 30,),
               GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, '/');
+                onTap: ()async{
+
+                  bool signup = await createUserApi(name.text, phone.text, email.text, password.text);
+                  if (signup){
+                    Navigator.pushNamed(context, '/');
+                  }
+
                 },
                 child: Container(
                   alignment: Alignment.center,

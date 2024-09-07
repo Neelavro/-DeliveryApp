@@ -1,14 +1,23 @@
+import 'package:delivery_app_admin_panel/repostiory/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../repostiory/restaurant.dart';
+
 class MenuCreate extends StatefulWidget {
-  const  MenuCreate({Key? key}) : super(key: key);
+  String id;
+  MenuCreate(this.id,{Key? key}) : super(key: key);
 
   @override
   State<MenuCreate> createState() => _MenuCreateState();
 }
 
 class _MenuCreateState extends State<MenuCreate> {
+  TextEditingController name = TextEditingController();
+  TextEditingController image = TextEditingController();
+  TextEditingController price = TextEditingController();
+  TextEditingController descriptiom = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +38,7 @@ class _MenuCreateState extends State<MenuCreate> {
               Container(
                 width: 60.w,
                 child: TextFormField(
+                  controller: name,
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -52,11 +62,13 @@ class _MenuCreateState extends State<MenuCreate> {
               Container(
                 width: 60.w,
                 child: TextFormField(
+                  readOnly: true,
+                  controller: image,
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     focusColor: Colors.red,
-                    labelText: "Type",
+                    labelText: "Image",
                     labelStyle: TextStyle(
                         color: Colors.black
                     ),
@@ -75,6 +87,7 @@ class _MenuCreateState extends State<MenuCreate> {
               Container(
                 width: 60.w,
                 child: TextFormField(
+                  controller: price,
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -98,6 +111,7 @@ class _MenuCreateState extends State<MenuCreate> {
               Container(
                 width: 60.w,
                 child: TextFormField(
+                  controller: descriptiom,
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -118,9 +132,36 @@ class _MenuCreateState extends State<MenuCreate> {
                 ),
               ),
               const SizedBox(height: 20,),
+              const SizedBox(height: 40,),
               GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, "/menupage");
+                onTap: ()async{
+                  image.text  = await uploadImage();
+                  setState(() {
+                  });
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 6.h,
+                  width: 18.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.red
+                  ),
+                  child: Text(
+                    "Upload a photo",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 6.sp
+                    ),
+                  )
+                ),
+              ),
+              const SizedBox(height: 40,),
+              GestureDetector(
+                onTap: ()async{
+                  await createMenu(widget.id, name.text, price.text, descriptiom.text, image.text);
+                  Navigator.pushNamed(context, "/homepage");
                 },
                 child: Container(
                   alignment: Alignment.center,

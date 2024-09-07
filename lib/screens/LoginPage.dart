@@ -1,6 +1,12 @@
+
+
 import 'package:delivery_app_admin_panel/repostiory/authentication.dart';
 import 'package:flutter/material.dart';
+
 import 'package:sizer/sizer.dart';
+
+
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,6 +18,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/unnamed.png",height: 50.h,),
+              Image.network("assets/unnamed.png",height: 50.h,),
               Container(
                 width: 50.w,
                 child: TextFormField(
