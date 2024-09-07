@@ -6,9 +6,7 @@ class CustomUser(models.Model):
     user_name = models.CharField(max_length=50, null=False)
     user_password = models.CharField(max_length=50, null=False)
     user_email = models.EmailField(max_length=50, unique=True, default='default')
-    #user_type_choices = [('admin', 'Admin'), ('customer', 'Customer')]
-    #user_type = models.CharField(max_length=50, choices=user_type_choices, default='customer')
-    #user_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    
 
     def __str__(self):
         return self.user_name
@@ -23,6 +21,7 @@ class Restaurant(models.Model):
 
 class Menu(models.Model):  # Renamed from 'menu' to 'Menu' (Class names should be capitalized)
     restaurant = models.ForeignKey(Restaurant, related_name='menu_items', on_delete=models.CASCADE)
+    image_url = models.CharField(max_length=300, null=False, default="")
     item_name = models.CharField(max_length=50, null=False)
     item_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     item_description = models.CharField(max_length=100, null=True)
@@ -75,3 +74,9 @@ class SessionToken(models.Model):
 
     def __str__(self):
         return self.token
+    
+class UploadedImage(models.Model):
+    image = models.ImageField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f"Image uploaded at {self.uploaded_at}"

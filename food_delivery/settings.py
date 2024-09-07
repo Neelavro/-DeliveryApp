@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -29,10 +31,11 @@ ALLOWED_HOSTS = [
     '*'
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:xxxx",  # Replace xxxx with your Flutter app's port
+    "http://localhost:55890",  # Replace xxxx with your Flutter app's port
     "http://127.0.0.1:xxxx",  # If you use the loopback IP
     "http://192.168.0.192:8000",  # Your local server IP
-]
+    "http://192.168.55.50:8000",
+    ]
 CORS_ALLOW_ALL_ORIGINS = True
 
 
@@ -47,9 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backend',
     'rest_framework',
-    'corsheaders'
-    'backend',
-    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
