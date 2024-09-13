@@ -1,2 +1,1 @@
-
-String serverurl = "http://172.20.10.2:8000/";
+String serverurl = "http://192.168.230.50:8000";

@@ -4,6 +4,7 @@ import 'package:food_delivery_app/screen/HomePage.dart';
 import 'package:food_delivery_app/screen/LoginPage.dart';
 import 'package:food_delivery_app/screen/SignUp.dart';
 import 'package:food_delivery_app/screen/dummy.dart';
+import 'package:food_delivery_app/screen/restaurantpage.dart';
 
 class RouteGenerator {
   static Route<dynamic> allRoutes(RouteSettings settings) {
@@ -16,6 +17,8 @@ class RouteGenerator {
           return SignUpPage();
         case "/homepage":
           return HomePage();
+        case "/restaurantpage":
+          return RestaurantPage();
       }
       return Dummy();
       // need to change to error page
