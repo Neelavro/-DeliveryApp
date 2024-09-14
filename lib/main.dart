@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           //primarySwatch: Colors.blue,
         ),
         onGenerateRoute: RouteGenerator.allRoutes,
-       initialRoute: "/restaurantpage",
+       initialRoute: "/",
       );}
     );
   }

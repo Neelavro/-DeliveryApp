@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/repository/authentication.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,8 +11,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late SharedPreferences prefs;
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initFunc();
+  }
+
+  initFunc()async{
+    prefs = await SharedPreferences.getInstance();
+    bool valid_token = await checkSessionToken(prefs);
+    if(valid_token){
+      Navigator.pushNamed(context, "/homepage");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -74,8 +91,14 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 50,),
               GestureDetector(
                 onTap: ()async{
-                  // bool signin = await loginUserApi(phone.text, password.text);
-                  Navigator.pushNamed(context, "/homepage");
+
+                  prefs.setString("Contact", phone.text);
+                  bool signin = await loginUserApi(phone.text, password.text, prefs);
+                  if(signin){
+
+                    Navigator.pushNamed(context, "/homepage");
+                  }
+
                 },
                 child: Container(
                   alignment: Alignment.center,

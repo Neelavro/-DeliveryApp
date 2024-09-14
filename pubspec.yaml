@@ -31,6 +31,8 @@ environment:
 dependencies:
   sizer: ^2.0.15
   http: any
+  cached_network_image: ^3.2.3
+  shared_preferences: ^2.2.2
   flutter:
     sdk: flutter
 
