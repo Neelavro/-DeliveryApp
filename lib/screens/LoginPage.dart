@@ -2,6 +2,7 @@
 
 import 'package:delivery_app_admin_panel/repostiory/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -16,11 +17,25 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late SharedPreferences prefs;
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
 
 
+  initFunc()async{
+    prefs = await SharedPreferences.getInstance();
+    bool valid_token = await checkSessionToken(prefs);
+    if(valid_token){
+      Navigator.pushNamed(context, "/homepage");
+    }
+  }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initFunc();
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -84,8 +99,9 @@ class _LoginPageState extends State<LoginPage> {
               GestureDetector(
                 onTap: ()async{
                   print(phone.text);
-                  bool x = await loginUserApi(phone.text, password.text);
+                  bool x = await loginUserApi(phone.text, password.text, prefs);
                   if (x){
+                    prefs.setString("Contact", phone.text);
                     Navigator.pushNamed(context, "/homepage");
                   }
                   else{

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery_app_admin_panel/Widget/MenuListWidget.dart';
 import 'package:delivery_app_admin_panel/constant.dart';
+import 'package:delivery_app_admin_panel/repostiory/restaurant.dart';
 import 'package:delivery_app_admin_panel/screens/MenuPage.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -76,6 +77,7 @@ class _RestaurantListWidgetState extends State<RestaurantListWidget> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child: GestureDetector(onTap: ()async{
+                      await getIndividualRestaurant(restaurantList[index]['pk'].toString());
                       await getALLMenu(restaurantList[index]["pk"].toString());
                       Navigator.push(
                         context,
@@ -114,7 +116,7 @@ class _RestaurantListWidgetState extends State<RestaurantListWidget> {
                               width: 20.w,
                               decoration: BoxDecoration(
                                   color: Colors.black26,
-                                  borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15)),
+                                  borderRadius: BorderRadius.circular(15),
                                 // image: DecorationImage(
                                 //   image: NetworkImage(restaurantList[index]["fields"]["restaurant_image"])
                                 // )

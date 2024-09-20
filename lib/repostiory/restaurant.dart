@@ -19,6 +19,8 @@ Future<bool> getIndividualRestaurant(String id) async {
     },
   );
   if (response.statusCode == 200) {
+    restaurant = jsonDecode(response.body)['data'];
+    print(restaurant);
     print(response.body);
     return true;
   } else {

@@ -1,6 +1,8 @@
 
 
-String serverurl = "http://192.168.55.50:8000/";
+String serverurl = "http://192.168.0.192:8000/";
 
 List restaurantList = [];
 List menuList = [];
+
+Map restaurant = {};
