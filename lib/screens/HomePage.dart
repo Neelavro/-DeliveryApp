@@ -3,7 +3,6 @@ import 'package:delivery_app_admin_panel/Widget/DiscountListWidget.dart';
 import 'package:delivery_app_admin_panel/Widget/RestaurantListWidget.dart';
 import 'package:sizer/sizer.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -18,7 +17,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.red,
         title:  Text(
-          "BiteDash"
+            "BiteDash"
         ),
       ),
       body: SingleChildScrollView(
@@ -34,30 +33,56 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     const SizedBox(height: 20,),
                     RestaurantListWidget("Restaurants"),
-
                   ],
                 ),
-                GestureDetector(
-                  onTap: (){
-                    Navigator.pushNamed(context, "/restaurantcreatepage");
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 10.h,
-                    width: 20.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.red
-                    ),
-                    child: Text(
-                      "Create a Restaurant",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 6.sp
+                Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/orderlistpage");
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 10.h,
+                        width: 20.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.red,
+                        ),
+                        child: Text(
+                          "Order List",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 6.sp,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 20,),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, "/restaurantcreatepage");
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 10.h,
+                        width: 20.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.red
+                        ),
+                        child: Text(
+                          "Create a Restaurant",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 6.sp
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -67,3 +92,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+

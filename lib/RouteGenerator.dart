@@ -1,6 +1,7 @@
 import 'package:delivery_app_admin_panel/screens/HomePage.dart';
 import 'package:delivery_app_admin_panel/screens/LoginPage.dart';
 import 'package:delivery_app_admin_panel/screens/MenuPage.dart';
+import 'package:delivery_app_admin_panel/screens/OrderListPage.dart';
 import 'package:delivery_app_admin_panel/screens/RestaurantCreatePage.dart';
 import 'package:delivery_app_admin_panel/screens/SignUp.dart';
 import 'package:delivery_app_admin_panel/screens/dummy.dart';
@@ -26,6 +27,9 @@ class RouteGenerator {
           return RestaurantCreatePage();
         case "/menucreate":
           return MenuCreate();
+        case "/orderlistpage":
+          return OrderListPage();
+
       }
       return Dummy();
       // need to change to error page
