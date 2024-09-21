@@ -30,15 +30,16 @@ class Menu(models.Model):  # Renamed from 'menu' to 'Menu' (Class names should b
         return self.item_name
 
 class Order(models.Model):
-    ORDER_STATUS_CHOICES = [('pending', 'Pending'), ('delivered', 'Delivered')]
-    order_type = models.CharField(max_length=50, choices=ORDER_STATUS_CHOICES, default='pending')
-    order_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
-    user = models.ForeignKey(CustomUser, related_name='user_orders', on_delete=models.CASCADE)
-    restaurant = models.ForeignKey(Restaurant, related_name='restaurant_orders', on_delete=models.CASCADE)
-    delivery = models.ForeignKey(CustomUser, related_name='delivery_orders', on_delete=models.CASCADE)
-    order_items = models.ForeignKey(Menu, related_name='menu_orders', on_delete=models.CASCADE)
-    delivery_address = models.CharField(max_length=500, null=False)
-    order_value = models.DecimalField(max_digits=10, decimal_places=2, null=False)
+    order_id = models.AutoField( editable=False, unique=True, primary_key=True)
+    user_id = models.ForeignKey(CustomUser, related_name='user_orders', on_delete=models.CASCADE)
+    restaurant_id = models.ForeignKey(Restaurant, related_name='restaurant_orders', on_delete=models.CASCADE)
+    order_type = models.CharField(max_length=50, default='pending')
+    order_items = models.JSONField()
+    payment_method = models.CharField(max_length=50, default='cash')
+    delivery_type = models.CharField(max_length=50, default='Delivery')
+
+
+    order_value = models.DecimalField(max_digits=65, decimal_places=2, null=False)
 
     def __str__(self):
         return f"Order {self.order_id} - {self.order_type}"
@@ -50,23 +51,7 @@ class Reviews(models.Model):
     restaurant = models.ForeignKey(Restaurant, related_name='restaurant_reviews', on_delete=models.CASCADE)
     menu_item = models.ForeignKey(Menu, related_name='menu_reviews', on_delete=models.CASCADE)
 
-class Payment(models.Model):
-    payment_type_choices = [('cash', 'Cash'), ('bKash', 'BKash')]
-    payment_type = models.CharField(max_length=50, choices=payment_type_choices, default='cash')
-    order = models.ForeignKey(Order, related_name='order_payments', on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, related_name='user_payments', on_delete=models.CASCADE)
-    restaurant = models.ForeignKey(Restaurant, related_name='restaurant_payments', on_delete=models.CASCADE)
 
-class Deliverer(models.Model):
-    delivery_name = models.CharField(max_length=50, null=False)
-    delivery_password = models.CharField(max_length=50, null=False)
-    delivery_email = models.EmailField(max_length=50, unique=True, default='default')
-    delivery_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
-    orders = models.ForeignKey(Order, related_name='order_deliverers', on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, related_name='user_deliverers', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.delivery_name
 
 class SessionToken(models.Model):
     user_email = models.EmailField(max_length=50)

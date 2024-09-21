@@ -34,7 +34,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:55890",  # Replace xxxx with your Flutter app's port
     "http://127.0.0.1:xxxx",  # If you use the loopback IP
     "http://192.168.0.192:8000",  # Your local server IP
-    "http://192.168.55.50:8000",
+    "http://192.168.0.196:8000",
+    "http://192.168.230.50:8000",
+    "http://192.168.68.112:8000", 
+    "http://172.20.10.2:8000", 
+
+    
     ]
 CORS_ALLOW_ALL_ORIGINS = True
 
