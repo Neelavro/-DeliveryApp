@@ -126,7 +126,13 @@ class _RestaurantPageState extends State<RestaurantPage> {
             Row(
               children: [
                 Icon(Icons.shopping_cart_rounded),
-                Text(counter.value.toString()),
+                ValueListenableBuilder<int>(
+                  valueListenable: counter,
+                  builder: (context, value, child) => Text(
+                    '${counter.value}',
+                    style: const TextStyle(fontSize: 20.0, color: Colors.white),
+                  ),
+                ),
               ],
             ),
           ],
