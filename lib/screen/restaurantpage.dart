@@ -20,9 +20,7 @@ class RestaurantPage extends StatefulWidget {
 
 class _RestaurantPageState extends State<RestaurantPage> {
   late SharedPreferences prefs;
-  ValueNotifier<int> counter = ValueNotifier(0);
 
-  List name = ['Best Burger', "Beef Cheese Delight", "Maddox", "Set Menu 1", "MeatBox"];
   bool loading = false;
   Future<bool> getALLMenu(String id) async {
     print(id);
@@ -65,6 +63,46 @@ class _RestaurantPageState extends State<RestaurantPage> {
     );
   }
 
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Adding an item from another restaurant will clear your current items in the cart.'),
+                Text('Are you sure you want to continue?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                order = [];
+                total_value = 0;
+                counter.value = 0;
+                order_items = [];
+                setState(() {
+
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -81,6 +119,18 @@ class _RestaurantPageState extends State<RestaurantPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(),
+            Row(
+              children: [
+                Icon(Icons.shopping_cart_rounded),
+                Text(counter.value.toString()),
+              ],
+            ),
+          ],
+        ),
       ),
       body:loading? Center(child: CircularProgressIndicator(
         color: Colors.red,
@@ -89,7 +139,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
           padding: const EdgeInsets.all(15),
           child: Column(
             children: [
-              SizedBox(height: 2.h,),
+              SizedBox(height: 1.h,),
               Row(
                 children: [
                   Container(
@@ -146,7 +196,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
 
               ),
               SizedBox(
-                height: 3.h,
+                height: 1.h,
               ),
               Row(
                 children: [
@@ -164,14 +214,13 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   )
                 ],
               ),
-              SizedBox(height: 5.h,),
+              SizedBox(height: 3.h,),
               Container(
                 height: 60.8.h,
                 width: 100.w,
                 child: ListView.builder(
                     itemCount: menuList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      int counter = 0;
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                         child: Container(
@@ -271,12 +320,28 @@ class _RestaurantPageState extends State<RestaurantPage> {
                                       children: [
                                         GestureDetector(
                                             onTap: (){
+                                              if(order.isEmpty){
+                                                cart_restauratn_id = 0;
+                                              }
+                                              if(cart_restauratn_id != widget.restaurant['pk'] && order.isNotEmpty){
+                                                _showMyDialog();
+                                                return;
+                                              }
+                                              if (cart_restaurant.isEmpty){
+                                                cart_restaurant = widget.restaurant;
+                                              }
+                                             counter.value += 1;
+                                             cart_restauratn_id = widget.restaurant['pk'];
                                              order_items.add(menuList[index]['pk']);
                                              order.add(menuList[index]);
                                              print(menuList[index]['fields']['item_price']);
                                              total_value += double.parse(menuList[index]['fields']['item_price']);
                                              print(total_value);
                                              print(order_items);
+                                             print(counter);
+                                             setState(() {
+
+                                             });
                                             },
                                             child: Container(
                                               alignment: Alignment.center,
@@ -314,20 +379,26 @@ class _RestaurantPageState extends State<RestaurantPage> {
       ),
       floatingActionButton: GestureDetector(
         onTap: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OrderConfirmationPage(widget.restaurant),
+          if(cart_restauratn_id != widget.restaurant['pk'] && order.isNotEmpty){
+            return;
+          }
+          else{
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OrderConfirmationPage(widget.restaurant),
 
-            ),
-          );
+              ),
+            );
+          }
+
         },
         child: Container(
           alignment: Alignment.center,
           width: 92.w,
           height: 5.h,
           decoration: BoxDecoration(
-            color: Colors.red,
+            color: order.isNotEmpty && cart_restauratn_id == widget.restaurant['pk'] ?Colors.red : Colors.grey,
             borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 BoxShadow(

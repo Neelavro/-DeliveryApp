@@ -10,110 +10,64 @@ import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import '../constant.dart';
 
-class OrderConfirmationPage extends StatefulWidget {
-  Map restaurant;
-  OrderConfirmationPage(this.restaurant,{super.key});
+class OrderDetailsPage extends StatefulWidget {
+  String restaurant_id;
+  List items;
+  String payment_method;
+  String order_value;
+  String order_status;
+  String delivery_type;
+  OrderDetailsPage(this.restaurant_id,this.items,this.payment_method, this.order_value, this.order_status, this.delivery_type, {super.key});
 
   @override
-  State<OrderConfirmationPage> createState() => _OrderConfirmationPageState();
+  State<OrderDetailsPage> createState() => _OrderDetailsPageState();
 }
 
-class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
+class _OrderDetailsPageState extends State<OrderDetailsPage> {
+
   late SharedPreferences prefs;
+  ValueNotifier<int> counter = ValueNotifier(0);
 
   bool loading = false;
-  Future<bool> getALLMenu(String id) async {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initfunc();
+    print(widget.items);
+
+  }
+  initfunc()async{
+    prefs = await SharedPreferences.getInstance();
+    await getIndivdiualRestaurant(widget.restaurant_id);
+  }
+
+  Future<bool> getIndivdiualRestaurant(String id) async {
     print(id);
     setState(() {
       loading = true;
     });
     final response = await http.get(
-      Uri.parse('$serverurl/menu/$id'),
+      Uri.parse('$serverurl/restaurant/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
     if (response.statusCode == 200) {
       print(response.body);
-      menuList = jsonDecode(response.body)["data"];
-      print(jsonDecode(response.body));
+      restaurant = jsonDecode(response.body)["data"];
       setState(() {
         loading = false;
       });
       return true;
     } else {
-      setState(() {
-        loading = false;
-      });
-      return false;
+      throw Exception('Failed to load restaurant');
     }
-  }
-
-  List<String> payment_methods = ["Cash", "Bkash", "Nagad"];
-  List<String> delivery_types = ["Delivery", "Pickup"];
-  String payment_method = '';
-  String delivery_type = '';
-  Widget Payment_Method() {
-    return DropdownButton<String>(
-
-      value: payment_method,
-      elevation: 0,
-      style: const TextStyle(color: Colors.black),
-
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          payment_method = value!;
-        });
-      },
-      items: payment_methods.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget Delivery_type() {
-    return DropdownButton<String>(
-
-      value: delivery_type,
-      elevation: 0,
-      style: const TextStyle(color: Colors.black),
-
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          delivery_type = value!;
-        });
-      },
-      items: delivery_types.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    getALLMenu(widget.restaurant['pk'].toString());
-    initfunc();
-
-  }
-  initfunc()async{
-    payment_method = payment_methods.first;
-    delivery_type = delivery_types.first;
-    prefs = await SharedPreferences.getInstance();
   }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -123,18 +77,15 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
       ),) :SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15),
-          child: order.isEmpty ? Padding(
-            padding: EdgeInsets.only(top: 40.h),
-            child: Center(child: Text(
-              "No items in cart.",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 12.sp,
-              ),
-            ) ,),
-          ): Column(
+          child: widget.items.length == 0? Center(child: Text(
+            "No items in cart.",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 12.sp,
+            ),
+          ) ,): Column(
             children: [
-              SizedBox(height: 1.h,),
+              SizedBox(height: 2.h,),
               Row(
                 children: [
                   Container(
@@ -146,7 +97,7 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            serverurl+widget.restaurant["fields"]["restaurant_image"].toString(),
+                            serverurl+restaurant['image_url'].toString(),
                           ),
                         ),
                         boxShadow: [
@@ -166,11 +117,10 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
                       width: 10.w
                   ),
                   Text(
-                    widget.restaurant['fields']['restaurant_name'],
+                    restaurant['name'],
                     style: TextStyle(
                       color: Colors. black,
                       fontSize: 15.sp,
-
                     ),
                   )
                 ],
@@ -193,6 +143,8 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
               SizedBox(
                 height: 1.h,
               ),
+              widget.order_status.toLowerCase() != 'pending'? Container():
+
               Row(
                 children: [
                   Icon(Icons.access_time),
@@ -209,42 +161,71 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
                   )
                 ],
               ),
+              SizedBox(height: 1.h,),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  widget.order_status == "Delivered"?
+                  Icon(Icons.check_circle, color: Colors.green,):
+                  widget.order_status == "Cancelled"?
+                  Icon(Icons.disabled_by_default_rounded, color: Colors.red,):
+                  Icon(Icons.delivery_dining_outlined),
+                  SizedBox(
+                    width: 2.w,
+                  ),
                   Text(
-                    "Payment Method :",
+                    "Order Sttus : ",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Payment_Method()
+
+                  Text(
+                    widget.order_status,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+
+                  Icon(Icons.car_repair),
+                  SizedBox(
+                    width: 2.w,
+                  ),
                   Text(
-                    "Delivery Type :",
+                    "Delivery Type : ",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Delivery_type()
+
+                  Text(
+                    widget.delivery_type,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
                 ],
               ),
               SizedBox(height: 3.h,),
+
               Container(
-                height: 40.8.h,
+                height: 42.8.h,
                 width: 100.w,
                 child: ListView.builder(
-                    itemCount: order.length,
+                    itemCount: widget.items.length,
                     itemBuilder: (BuildContext context, int index) {
-
+                      int counter = 0;
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                         child: Container(
@@ -274,28 +255,17 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    IconButton(
-                                        onPressed: (){
-                                          counter.value -=1;
-                                          print(order_items);
-                                          total_value -= double.parse(menuList[index]['fields']['item_price']);
-                                          order_items.remove(order[index]['pk']);
-                                          order.remove(order[index]);
-                                          print(order_items);
-                                          setState(() {
-                                          });
-                                        },
-                                      icon: Icon(Icons.dangerous, color: Colors.red,)),
-                                    Text(order[index]['fields']['item_name'],
+                                    Text(
+                                      widget.items[index]['item_name'],
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12.sp
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 10.sp
                                       ),
                                     ),
                                     SizedBox(height: 5,),
                                     Text(
-                                      order[index]['fields']['item_price'],
+                                      widget.items[index]['item_price'],
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
@@ -318,58 +288,19 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
                 endIndent: 20,
                 indent: 20,
               ),
-
+              SizedBox(height: 20,),
+              OrderDetailsTextWidget('Payment Method', widget.payment_method),
               SizedBox(height: 10,),
-              OrderDetailsTextWidget("Total", total_value.toString()),
+              OrderDetailsTextWidget('Total', widget.order_value),
               SizedBox(height: 10,),
-              OrderDetailsTextWidget("Delivery Charge", "${50.00}"),
+              OrderDetailsTextWidget('Delivery Charge', "50"),
               SizedBox(height: 10,),
-              OrderDetailsTextWidget("Total Order Value", "${total_value+50.00}")
-
+              OrderDetailsTextWidget('Total Order Value', (double.parse(widget.order_value)+50.00).toString()),
             ],
           ),
         ),
       ),
-      floatingActionButton:order.isEmpty? Container(): Container(
-        alignment: Alignment.center,
-        width: 92.w,
-        height: 5.h,
-        decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                offset: const Offset(
-                  3.0,
-                  4.0,
-                ),
-                blurRadius: 5.0,
-                spreadRadius: 0.0,
-              ),]
-        ),
-        child: GestureDetector(
-          onTap: ()async {
-            var contact = await prefs.getString("Contact")!;
-            bool orderstatus = await createOrder(contact, widget.restaurant["pk"].toString(), "Pending", order_items, payment_method, delivery_type);
-            if(orderstatus){
-              order_items = [];
-              order = [];
-              total_value = 0;
-              counter.value = 0;
-              cart_restaurant = {};
-              Navigator.pushNamed(context, "/homepage");
-            }
-          },
-          child: Text("Place order",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 12.sp
-            ),
-          ),
-        ),
-      ),
+
     );
   }
 }

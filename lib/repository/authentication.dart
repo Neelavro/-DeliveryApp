@@ -59,6 +59,12 @@ Future<bool> createUserApi(String name,String phone,String email, String passwor
       'password': password,
     }),
   );
+  print( jsonEncode(<String, String>{
+    'name': name,
+    'phone': phone,
+    'email': email,
+    'password': password,
+  }));
   if (response.statusCode == 200) {
     print(response.body);
     return true;

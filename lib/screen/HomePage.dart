@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Widget/DiscountListWidget.dart';
 import 'package:food_delivery_app/Widget/RestaurantListWidget.dart';
+import 'package:food_delivery_app/screen/LoginPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 
 import '../constant.dart';
+import 'OrderConfirmationPage.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -177,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                 // Update the state of the app
 
                 // Then close the drawer
-                Navigator.pop(context);
+                Navigator.pushNamed(context, "/orderhistory");
               },
             ),
             SizedBox(height: 50.h,),
@@ -195,12 +197,30 @@ class _HomePageState extends State<HomePage> {
                 order_items = [];
                 order = [];
                 prefs.setString("token", "value");
-                Navigator.pop(context);
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LoginPage()
+
+                  ),
+                );
               },
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OrderConfirmationPage(cart_restaurant),
+
+            ),
+          );
+        },
+        child: Icon(Icons.shopping_cart_outlined, color: Colors.white,)
       ),
     );
   }

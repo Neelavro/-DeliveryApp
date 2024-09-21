@@ -54,7 +54,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      appBar: AppBar(backgroundColor: Colors.red,elevation: 0,),
+      body:loading? Center(child: CircularProgressIndicator(),): SingleChildScrollView(
         child: Column(
           children: [
             Container(
