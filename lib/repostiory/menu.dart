@@ -27,3 +27,26 @@ Future<bool> createMenu(String id, String name,String price, String descriptiom,
     throw Exception('Failed to load menu');
   }
 }
+
+
+Future<bool> updateMenu(String id, String name,String price, String descriptiom,String url ) async {
+  final response = await http.put(
+    Uri.parse('$serverurl/menu/update'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'id': id,
+      'name': name,
+      'price': price,
+      'description': descriptiom,
+      'image_url': url
+    }),
+  );
+  if (response.statusCode == 200) {
+    print(response.body);
+    return true;
+  } else {
+    throw Exception('Failed to load menu');
+  }
+}

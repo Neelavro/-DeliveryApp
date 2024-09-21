@@ -26,8 +26,6 @@ class RestaurantListWidget extends StatefulWidget {
 class _RestaurantListWidgetState extends State<RestaurantListWidget> {
   bool loading = false;
 
-
-  List name = ['Takeout', "Chillox", "Madchef", "North End", "Butlers"];
   Future<bool> getALLMenu(String id) async {
     print(id);
     setState(() {

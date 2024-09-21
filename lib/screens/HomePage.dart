@@ -82,27 +82,54 @@ class _HomePageState extends State<HomePage> {
 
                   ],
                 ),
-                GestureDetector(
-                  onTap: (){
-                    Navigator.pushNamed(context, "/restaurantcreatepage");
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 10.h,
-                    width: 20.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.red
-                    ),
-                    child: Text(
-                      "Create a Restaurant",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 6.sp
+                Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/orderlistpage");
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 10.h,
+                        width: 20.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.red,
+                        ),
+                        child: Text(
+                          "Order List",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 6.sp,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 20,),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, "/restaurantcreatepage");
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 10.h,
+                        width: 20.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.red
+                        ),
+                        child: Text(
+                          "Create a Restaurant",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 6.sp
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
